@@ -19,7 +19,6 @@ function BackgroundImage:update(dt)
     end
 
     self.x = self.x - (self.scrollSpeed * dt)
-    print(self.x, love.graphics.getWidth())
 end
 
 function BackgroundImage:draw()
