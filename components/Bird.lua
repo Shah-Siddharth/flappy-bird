@@ -16,6 +16,11 @@ end
 
 function Bird:update(dt)
     self.dy = self.dy + self.gravity * dt
+
+    if love.keyboard.keysPressed['space'] then
+        self.dy = -5
+    end
+
     self.y = self.y + self.dy
 end
 

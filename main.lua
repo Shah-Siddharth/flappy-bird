@@ -24,6 +24,12 @@ function love.load()
     })
 
     love.window.setTitle('Flappy Bird')
+
+    love.keyboard.keysPressed = {}
+end
+
+function love.keypressed(key)
+    love.keyboard.keysPressed[key] = true
 end
 
 function love.update(dt)
@@ -31,6 +37,8 @@ function love.update(dt)
     bgLayer2:update(dt)
     bgLayer3:update(dt)
     bird:update(dt)
+
+    love.keyboard.keysPressed = {}
 end
 
 function love.draw()
