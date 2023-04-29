@@ -1,22 +1,26 @@
 local PIPE_IMAGE = love.graphics.newImage('assets/pipe.png')
 local PIPE_SCROLL_SPEED = 60
 
+-- global variables
+PIPE_WIDTH = PIPE_IMAGE:getWidth()
+PIPE_HEIGHT = PIPE_IMAGE:getHeight()
+
 Pipe = {}
 Pipe.__index = Pipe
 
-function Pipe:init()
+function Pipe:init(position, y)
     local this = {}     --new instance
     setmetatable(this, Pipe)
     
     this.x = VIRTUAL_WIDTH + 50
-    this.y = math.random( VIRTUAL_HEIGHT/4, VIRTUAL_HEIGHT - 25)
-    this.width = PIPE_IMAGE:getWidth()
+    this.y = y
+    this.position = position
 
     return this
 end
 
 function Pipe:update(dt)
-    self.x = self.x - PIPE_SCROLL_SPEED * dt
+
 end
 
 function Pipe:draw()
