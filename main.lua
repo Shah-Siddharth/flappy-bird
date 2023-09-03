@@ -1,6 +1,7 @@
 require("components.BackgroundImage")
 require("components.Bird")
 require("components.Pipe")
+require("components.PipePair")
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -18,6 +19,8 @@ local bgLayer3 = BackgroundImage:init('assets/background-layer-3.png', 0, 0, 60)
 local bird = Bird:init('assets/bird.png', VIRTUAL_WIDTH, VIRTUAL_HEIGHT)
 --local pipe = Pipe:init()
 
+local pipePairs = {}
+local lastY = -PIPE_HEIGHT + math.random(80) + 20
 local pipes = {}
 local pipesToRemove = {}
 local timer = 0
@@ -39,12 +42,25 @@ function love.keypressed(key)
     love.keyboard.keysPressed[key] = true
 end
 
+local function clamp(n, min, max)
+    if n < min then
+        n = min
+    elseif n > max then
+        n = max
+    end
+
+    return n
+end
+
 function love.update(dt)
     
     timer = timer + dt
     
     if timer > 2 then
-        table.insert(pipes, Pipe:init())
+        local y = lastY + math.random(-20, 20)
+        y = clamp(-PIPE_HEIGHT+10, y, VIRTUAL_HEIGHT-PIPE_HEIGHT-GAP_HEIGHT)
+        lastY = y
+        table.insert(pipePairs, PipePair:init(y))
         timer = 0
     end
 
@@ -53,13 +69,13 @@ function love.update(dt)
     bgLayer3:update(dt)
     bird:update(dt)
 
-    for k, pipe in pairs(pipes) do
-        pipe:update(dt)
+    for k, pair in pairs(pipePairs) do
+        pair:update(dt)
     end
 
     local i = 1
-    while i < #pipes do
-        if pipes[i].x < -pipes[i].width then
+    while i <= #pipes do
+        if pipePairs[i].remove then
             table.remove( pipes, i )
         else
             i = i+1
@@ -75,8 +91,8 @@ function love.draw()
     bgLayer1:draw()
     bgLayer2:draw()
     
-    for k, pipe in pairs(pipes) do
-        pipe:draw()
+    for k, pair in pairs(pipePairs) do
+        pair:draw()
     end
     
     bgLayer3:draw()

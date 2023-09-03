@@ -1,4 +1,5 @@
-local GAP_HEIGHT = 90
+GAP_HEIGHT = 100
+PIPE_SCROLL_SPEED = 60
 
 PipePair = {}
 PipePair.__index = PipePair
@@ -11,11 +12,13 @@ function PipePair:init(y)
     this.y = y
 
     this.pipes = {
-        ['upper'] = Pipe('top', this.y),
-        ['lower'] = Pipe('bottom', this.y + PIPE_HEIGHT + GAP_HEIGHT)
+        ['upper'] = Pipe:init('top', this.y + PIPE_HEIGHT),
+        ['lower'] = Pipe:init('bottom', this.y + PIPE_HEIGHT + GAP_HEIGHT)
     }
 
     this.remove = false
+
+    return this
 end
 
 

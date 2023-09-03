@@ -1,5 +1,4 @@
 local PIPE_IMAGE = love.graphics.newImage('assets/pipe.png')
-local PIPE_SCROLL_SPEED = 60
 
 -- global variables
 PIPE_WIDTH = PIPE_IMAGE:getWidth()
@@ -24,5 +23,14 @@ function Pipe:update(dt)
 end
 
 function Pipe:draw()
-    love.graphics.draw(PIPE_IMAGE, self.x, self.y)
+    local scaleY = self.position == 'top' and -1 or 1
+
+    love.graphics.draw(
+        PIPE_IMAGE,
+        self.x,
+        self.y,
+        0,
+        1,
+        scaleY
+    )
 end
