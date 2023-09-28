@@ -24,6 +24,18 @@ function Bird:update(dt)
     self.y = self.y + self.dy
 end
 
+function Bird:collides(pipe)
+    if (self.x + self.img:getWidth() >= pipe.x) and (self.x <= pipe.x + PIPE_WIDTH) then
+        if (pipe.position == 'top') then
+            if self.y <= pipe.y then return true end
+        elseif (pipe.position == 'bottom') then
+            if (self.y + self.img:getHeight()) >= pipe.y then return true end
+        end
+    end
+
+    return false
+end
+
 function Bird:draw()
     love.graphics.draw(self.img, self.x, self.y)
 end

@@ -17,12 +17,12 @@ local bgLayer2 = BackgroundImage:init('assets/background-layer-2.png', 0, 0, 45)
 local bgLayer3 = BackgroundImage:init('assets/background-layer-3.png', 0, 0, 60)
 
 local bird = Bird:init('assets/bird.png', VIRTUAL_WIDTH, VIRTUAL_HEIGHT)
---local pipe = Pipe:init()
+
+local scrolling = true
 
 local pipePairs = {}
 local lastY = -PIPE_HEIGHT + math.random(80) + 20
 local pipes = {}
-local pipesToRemove = {}
 local timer = 0
 
 function love.load()
@@ -53,32 +53,39 @@ local function clamp(n, min, max)
 end
 
 function love.update(dt)
-    
-    timer = timer + dt
-    
-    if timer > 2 then
-        local y = lastY + math.random(-20, 20)
-        y = clamp(-PIPE_HEIGHT+10, y, VIRTUAL_HEIGHT-PIPE_HEIGHT-GAP_HEIGHT)
-        lastY = y
-        table.insert(pipePairs, PipePair:init(y))
-        timer = 0
-    end
+    if scrolling then 
+        timer = timer + dt
+        if timer > 2 then
+            local y = lastY + math.random(-20, 20)
+            y = clamp(-PIPE_HEIGHT+10, y, VIRTUAL_HEIGHT-PIPE_HEIGHT-GAP_HEIGHT)
+            lastY = y
+            table.insert(pipePairs, PipePair:init(y))
+            timer = 0
+        end
 
-    bgLayer1:update(dt)
-    bgLayer2:update(dt)
-    bgLayer3:update(dt)
-    bird:update(dt)
+        bgLayer1:update(dt)
+        bgLayer2:update(dt)
+        bgLayer3:update(dt)
+        bird:update(dt)
 
-    for k, pair in pairs(pipePairs) do
-        pair:update(dt)
-    end
+        for k, pair in pairs(pipePairs) do
+            pair:update(dt)
 
-    local i = 1
-    while i <= #pipes do
-        if pipePairs[i].remove then
-            table.remove( pipes, i )
-        else
-            i = i+1
+            -- check if bird collides with the pipe pair
+            for l, pipe in pairs(pair.pipes) do
+                if bird:collides(pipe) then
+                    scrolling = false   -- pause game
+                end
+            end
+        end
+
+        local i = 1
+        while i <= #pipes do
+            if pipePairs[i].remove then
+                table.remove( pipes, i )
+            else
+                i = i+1
+            end
         end
     end
 
