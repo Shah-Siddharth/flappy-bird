@@ -56,7 +56,9 @@ function love.keypressed(key)
     love.keyboard.keysPressed[key] = true
 end
 
-
+function love.keyboard.wasPressed(key)
+    return love.keyboard.keysPressed[key]
+end
 
 function love.update(dt)
     if SCROLLING then
@@ -104,11 +106,13 @@ function love.draw()
     bgLayer1:draw()
     bgLayer2:draw()
     
-    for _, pair in pairs(pipePairs) do
-        pair:draw()
-    end
+    -- for _, pair in pairs(pipePairs) do
+    --     pair:draw()
+    -- end
+
+    gStateMachine:render()
     
     bgLayer3:draw()
-    bird:draw()
+    -- bird:draw()
 
 end
