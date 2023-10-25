@@ -12,6 +12,9 @@ function ScoreState:enter(params)
     self.score = params.score
 end
 
+function ScoreState:exit()
+end
+
 function ScoreState:update(dt)
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
         gStateMachine:change('countdown')
@@ -19,5 +22,5 @@ function ScoreState:update(dt)
 end
 
 function ScoreState:render()
-    -- to do
+    love.graphics.printf('Score: ' .. tostring(self.score), 0, 25, VIRTUAL_WIDTH, 'center')
 end

@@ -13,6 +13,12 @@ function CountdownState:init()
     return this
 end
 
+function CountdownState:enter()
+end
+
+function CountdownState:exit()
+end
+
 function CountdownState:update(dt)
     self.timer = self.timer + dt
     
@@ -27,5 +33,5 @@ function CountdownState:update(dt)
 end
 
 function CountdownState:render()
-    -- to do
+    love.graphics.printf(tostring(self.count), 0, 25, VIRTUAL_WIDTH, 'center')
 end

@@ -20,7 +20,6 @@ end
 function StateMachine:change(stateName, enterParams)
     assert(self.states[stateName])
     self.current:exit()
-    -- do check the next line when you create state classes
     self.current = self.states[stateName]:init()
     self.current:enter(enterParams)
 end

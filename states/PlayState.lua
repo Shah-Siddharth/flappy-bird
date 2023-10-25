@@ -27,6 +27,14 @@ function PlayState:init()
     return this
 end
 
+function PlayState:enter()
+    SCROLLING = true
+end
+
+function PlayState:exit()
+    SCROLLING = false
+end
+
 function PlayState:update(dt)
     self.timer = self.timer + dt
     if self.timer > 2 then
@@ -37,13 +45,16 @@ function PlayState:update(dt)
         self.timer = 0
     end
 
+    self.bird:update(dt)
+
     for k, pair in pairs(self.pipePairs) do
         pair:update(dt)
 
         -- check if bird collides with the pipe pair
         for l, pipe in pairs(pair.pipes) do
             if self.bird:collides(pipe) then
-                gStateMachine:change('score')
+                SCROLLING = false
+                gStateMachine:change('score', {score = self.score})
             end
         end
     end
@@ -58,10 +69,10 @@ function PlayState:update(dt)
     end
 end
 
-function PlayState:enter()
-    SCROLLING = true
-end
+function PlayState:render()
+	for _, pair in pairs(self.pipePairs) do
+        pair:draw()
+    end
 
-function PlayState:exit()
-    SCROLLING = false
+    self.bird:draw()
 end
