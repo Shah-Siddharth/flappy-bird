@@ -17,6 +17,7 @@ function PipePair:init(y)
     }
 
     this.remove = false
+    this.scored = false
 
     return this
 end
