@@ -14,6 +14,7 @@ function CountdownState:init()
 end
 
 function CountdownState:enter()
+    SCROLLING = false
 end
 
 function CountdownState:exit()

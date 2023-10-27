@@ -9,9 +9,11 @@ function TitleScreenState:init()
 end
 
 function TitleScreenState:enter()
+    SCROLLING = true
 end
 
 function TitleScreenState:exit()
+    SCROLLING = false
 end
 
 function TitleScreenState:update(dt)
