@@ -9,6 +9,7 @@ function ScoreState:init()
 end
 
 function ScoreState:enter(params)
+    SCROLLING = false
     self.score = params.score
 end
 

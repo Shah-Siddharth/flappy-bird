@@ -52,6 +52,7 @@ function PlayState:update(dt)
             if pair.x + PIPE_WIDTH < self.bird.x then
             	self.score = self.score + 1
             	pair.scored = true
+            	SOUNDS['score']:play()
             end
         end
 
@@ -62,7 +63,7 @@ function PlayState:update(dt)
         -- check if bird collides with the pipe pair
         for l, pipe in pairs(pair.pipes) do
             if self.bird:collides(pipe) then
-                SCROLLING = false
+                SOUNDS['die']:play()
                 gStateMachine:change('score', {score = self.score})
             end
         end

@@ -38,6 +38,12 @@ function love.load()
     math.randomseed(os.time())
     love.keyboard.keysPressed = {}
 
+    SOUNDS = {
+        ['jump'] = love.audio.newSource('sounds/jump.wav', 'static'),
+        ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
+        ['die'] = love.audio.newSource('sounds/die.wav', 'static')
+    }
+
     gStateMachine = StateMachine:init({
         ['title'] = TitleScreenState,
         ['countdown'] = CountdownState,
