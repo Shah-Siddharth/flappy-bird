@@ -47,6 +47,12 @@ function PlayState:update(dt)
 
     self.bird:update(dt)
 
+    -- bird dies if it falls to the ground
+    if self.bird.y > VIRTUAL_HEIGHT then
+    	SOUNDS['die']:play()
+    	gStateMachine:change('score', {score = self.score})
+    end
+
     for _, pair in pairs(self.pipePairs) do
         if not pair.scored then
             if pair.x + PIPE_WIDTH < self.bird.x then
