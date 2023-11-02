@@ -34,5 +34,9 @@ function CountdownState:update(dt)
 end
 
 function CountdownState:render()
-    love.graphics.printf(tostring(self.count), 0, 25, VIRTUAL_WIDTH, 'center')
+    love.graphics.push("all")
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.setFont(LARGE_FONT)
+    love.graphics.printf(tostring(self.count), 0, VIRTUAL_HEIGHT/2 - LARGE_FONT:getHeight()/2, VIRTUAL_WIDTH, 'center')
+    love.graphics.pop()
 end

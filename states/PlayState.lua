@@ -91,4 +91,10 @@ function PlayState:render()
     end
 
     self.bird:draw()
+
+    love.graphics.push("all")
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.setFont(MEDIUM_FONT)
+    love.graphics.printf('Score: ' .. tostring(self.score), 10, 10, VIRTUAL_WIDTH, 'left')
+    love.graphics.pop()
 end

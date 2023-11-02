@@ -26,6 +26,10 @@ local bgLayer1 = BackgroundImage:init('assets/background-layer-1.png', 0, 0, 30)
 local bgLayer2 = BackgroundImage:init('assets/background-layer-2.png', 0, 0, 45)
 local bgLayer3 = BackgroundImage:init('assets/background-layer-3.png', 0, 0, 60)
 
+LARGE_FONT = love.graphics.newFont('fonts/AtlantisInternational.ttf', 40)
+MEDIUM_FONT = love.graphics.newFont('fonts/AtlantisInternational.ttf', 25)
+SMALL_FONT = love.graphics.newFont('fonts/AtlantisInternational.ttf', 15)
+
 function love.load()
     love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
